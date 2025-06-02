@@ -1,10 +1,10 @@
-import './App.css'
+import HomePage from './pages/HomePage/HomePage';
 
 function App() {
   return (
-    <>
-      <h1>Cost Control</h1>
-    </>
+    <div className='container'>   
+      <HomePage />
+    </div>
   )
 }
 

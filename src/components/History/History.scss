@@ -1,0 +1,36 @@
+.history {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &-item {
+    display: flex;
+    justify-content: space-between;
+
+    &__main {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    &__icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0.5rem;
+      border-radius: 1.25rem;
+      background: #e9f5e9;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    &__description {
+      font-size: 0.75rem;
+    }
+
+    &__value {
+      font-weight: 600;
+    }
+  }
+}

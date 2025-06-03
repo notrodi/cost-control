@@ -1,4 +1,4 @@
-import { formatDate, getCategoryTitle } from '../../functions';
+import { formatDate, formatMoney, getCategoryTitle } from '../../functions';
 import type { Transaction } from '../../types';
 import './History.scss';
 
@@ -27,7 +27,9 @@ export default function History({ data }: HistoryProps) {
           <div className='history-item__info'>
             <div>
               <span className='history-item__value'>
-                −{ item.value }.00</span> &#8381;
+                { `−${formatMoney(item.value)}` }
+              </span>
+              <span className='history-item__rub'> &#8381;</span>
             </div>
             <div  className='history-item__description'>
               { formatDate(item.date) }

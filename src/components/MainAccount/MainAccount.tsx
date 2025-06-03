@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './MainAccount.scss';
+import { formatCents, formatWholePart } from '../../functions';
 
 export default function MainAccount() {
   const [amount, setAmount] = useState(10000.00);
@@ -11,10 +12,9 @@ export default function MainAccount() {
         <img className='main-account__edit' src='/icons/icon-edit.svg' alt='icon' />
       </div>
       <div>
-        <span className='main-account__ruble'>&#8381; </span>
-        {/* <span className='main-account__amount'>{ amount }</span> */}
-        <span className='main-account__amount'>10'000</span>
-        <span className='main-account__amount_alt'>.00</span>
+        <span className='main-account__amount'>{ formatWholePart(amount) }</span>
+        <span className='main-account__amount_alt'>{ `.${formatCents(amount)}` }</span>
+        <span className='main-account__ruble'> &#8381;</span>
       </div>
     </div>
   )

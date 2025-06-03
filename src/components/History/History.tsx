@@ -1,4 +1,4 @@
-import { formatDate, formatMoney, getCategoryTitle } from '../../functions';
+import { formatDate, formatMoney, getCategoryColor, getCategoryTitle } from '../../functions';
 import type { Transaction } from '../../types';
 import './History.scss';
 
@@ -12,7 +12,9 @@ export default function History({ data }: HistoryProps) {
       { data.map(item =>
         <div className='history-item'>
           <div className='history-item__main'>
-            <div className='history-item__icon'>
+            <div
+              className='history-item__icon'
+              style={{ background: getCategoryColor(item.category) }}>
               <img src={ `/categories/icon-${item.category}.svg` } alt="icon" />
             </div>
             <div>

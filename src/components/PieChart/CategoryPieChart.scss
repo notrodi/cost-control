@@ -1,0 +1,29 @@
+.category-pie-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .recharts-pie-sector {
+    outline: none;
+  }
+
+  &__legend {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0;
+    list-style: none;
+
+    &__item{
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+      color: #777498;
+
+      &__category {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

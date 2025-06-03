@@ -9,8 +9,8 @@ type HistoryProps = {
 export default function History({ data }: HistoryProps) {
   return (
     <div className='history'>
-      { data.map(item =>
-        <div className='history-item'>
+      { data.map((item, index) =>
+        <div key={ index } className='history-item'>
           <div className='history-item__main'>
             <div
               className='history-item__icon'

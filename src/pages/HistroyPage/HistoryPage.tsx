@@ -3,7 +3,7 @@ import { transactionsMock } from '../../mocks';
 
 export default function HistoryPage() {
   return (
-    <div>
+    <div className='page-container'>
         <h2 className='main-title'>История операций</h2>
 
         <History data={transactionsMock} />

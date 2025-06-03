@@ -1,13 +1,24 @@
 .tabs {
   display: flex;
-  gap: 1.5rem;
-  padding: 0.5rem;
+  gap: 0.5rem;
   position: absolute;
   bottom: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 2rem;
-  background: #e9f5e9;
+
+  &__add {
+    padding: 0.5rem;
+    border-radius: 2rem;
+    background: #e9f5e9;
+  }
+
+  &__main {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    background: #e9f5e9;
+  }
 
   &__item {
       padding: 0.75rem;

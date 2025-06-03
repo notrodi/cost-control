@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import Tabs from './components/Tabs/Tabs';
 import HomePage from './pages/HomePage/HomePage';
 import HistoryPage from './pages/HistroyPage/HistoryPage';
-import Tabs from './components/Tabs/Tabs';
+import AddTransactionPage from './pages/AddTransactionPage/AddTransactionPage';
 import { PageType } from './types';
 
 function App() {
@@ -12,6 +13,8 @@ function App() {
       { page === PageType.Home && <HomePage /> }
 
       { page === PageType.History && <HistoryPage /> }
+
+      { page === PageType.AddTransaction && <AddTransactionPage /> }
 
       <Tabs active={ page } onChange={ (tab) => setPage(tab) } />
     </div>

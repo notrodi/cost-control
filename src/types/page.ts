@@ -1,4 +1,5 @@
 export enum PageType {
   Home = 'home',
-  History = 'history'
+  History = 'history',
+  AddTransaction = 'addTransaction'
 }

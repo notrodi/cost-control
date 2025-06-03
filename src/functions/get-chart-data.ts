@@ -9,9 +9,11 @@ export function getChartData(transactions: Transaction[]) {
     result[category] = (result[category] || 0) + value;
   });
 
-  return Object.entries(result).map(([category, value]) => ({
-    title: getCategoryTitle(category as Category),
-    color: getCategoryChartColor(category as Category),
-    value,
-  }));
+  return Object.entries(result)
+    .map(([category, value]) => ({
+      title: getCategoryTitle(category as Category),
+      color: getCategoryChartColor(category as Category),
+      value,
+    }))
+    .sort((a, b) => b.value - a.value);
 }

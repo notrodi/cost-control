@@ -1,4 +1,4 @@
-import { getCategoryTitle } from '../../functions';
+import { formatDate, getCategoryTitle } from '../../functions';
 import type { Transaction } from '../../types';
 import './History.scss';
 
@@ -24,11 +24,13 @@ export default function History({ data }: HistoryProps) {
               </div>
             </div>
           </div>
-          <div>
+          <div className='history-item__info'>
             <div>
-              <span
-                className='history-item__value'>
-                { item.value }.00</span> &#8381;
+              <span className='history-item__value'>
+                −{ item.value }.00</span> &#8381;
+            </div>
+            <div  className='history-item__description'>
+              { formatDate(item.date) }
             </div>
           </div>
         </div>

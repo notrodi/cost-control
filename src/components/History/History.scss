@@ -29,6 +29,12 @@
       font-size: 0.75rem;
     }
 
+    &__info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
     &__value {
       font-weight: 600;
     }

@@ -7,9 +7,11 @@ type HistoryProps = {
 }
 
 export default function History({ data }: HistoryProps) {
+  const sortedData = data.slice().sort((a, b) => b.date.getTime() - a.date.getTime());
+
   return (
     <div className='history'>
-      { data.map((item, index) =>
+      { sortedData.map((item, index) =>
         <div key={ index } className='history-item'>
           <div className='history-item__main'>
             <div

@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { getCategoryTitle } from '../../functions';
+import { getCategoryColor, getCategoryTitle } from '../../functions';
 import { Category } from '../../types';
 import './TransactionForm.scss';
 
 export default function TransactionForm() {
-  const FOMR_DEFAULT_VALUE = {
+  const FORM_DEFAULT_VALUE = {
     value: '',
-    category: Category.Products,
+    category: '',
     description: '',
     date: new Date().toISOString().slice(0, 16)
   }
-  const [form, setForm] = useState(FOMR_DEFAULT_VALUE);
+  const [form, setForm] = useState(FORM_DEFAULT_VALUE);
 
 
   function handleSubmit(event: React.FormEvent) {
@@ -22,7 +22,7 @@ export default function TransactionForm() {
       value: (Number(form.value))
     });
 
-    setForm(FOMR_DEFAULT_VALUE);
+    setForm(FORM_DEFAULT_VALUE);
   }
   
   return (
@@ -53,16 +53,30 @@ export default function TransactionForm() {
         <label
           className="transaction-form__label"
           htmlFor="category">Категория</label>
-        <select
-          className="transaction-form__input"
-          id="category"
-          value={ form.category }
-          onChange={ (event) => setForm(prev => ({ ...prev, category: event.target.value as Category })) } >
-          {
-            Object.values(Category)
-              .map(category => <option key={ category } value={ category }>{ getCategoryTitle(category) }</option>)
-          }
-        </select>
+          <div className="transaction-form__category">
+            <div
+              className="transaction-form__category__icon"
+              style={{ 
+                background: form.category
+                  ? getCategoryColor(form.category as Category)
+                  : '#e5e5e5'
+              }} >
+              <img src={ form.category
+                ? `/categories/icon-${form.category}.svg`
+                : '/categories/icon-question.svg' } alt="icon" />
+            </div>
+            <select
+              className="transaction-form__input"
+              id="category"
+              value={ form.category }
+              onChange={ (event) => setForm(prev => ({ ...prev, category: event.target.value as Category })) } >
+              <option value="" hidden>Выберете категорию</option>
+              {
+                Object.values(Category)
+                  .map(category => <option key={ category } value={ category }>{ getCategoryTitle(category) }</option>)
+              }
+            </select>
+          </div>
       </div>
 
       <div className="transaction-form__item">

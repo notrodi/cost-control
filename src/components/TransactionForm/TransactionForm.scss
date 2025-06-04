@@ -23,6 +23,28 @@
     font-weight: 500;
   }
 
+  &__category {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    &__icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0.5rem;
+      border-radius: 1.25rem;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .transaction-form__input {
+      flex-grow: 1;
+    }
+  }
+
   &__button {
     padding: 0.625rem;
     border: none;

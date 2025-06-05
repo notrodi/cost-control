@@ -15,12 +15,28 @@ export default function TransactionForm() {
     description: '',
     date: new Date().toISOString().slice(0, 16)
   }
-  const [form, setForm] = useState(FORM_DEFAULT_VALUE);
-  const dispatch = useDispatch<AppDispatch>();
 
+  const [form, setForm] = useState(FORM_DEFAULT_VALUE);
+  const [formErrors, setFormErrors] = useState({
+    value: false,
+    category: false,
+  });
+
+  const dispatch = useDispatch<AppDispatch>();
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
+
+    const hasError = {
+      value: form.value.trim() === '' || Number(form.value) <= 0,
+      category: form.category.trim() === '',
+    };
+
+    setFormErrors(hasError);
+
+    if (hasError.value || hasError.category) {
+      return;
+    }
 
     const newTransaction = {
       ...form,
@@ -44,19 +60,29 @@ export default function TransactionForm() {
           className="transaction-form__label"
           htmlFor="value">Сумма</label>
         <input
-          className="transaction-form__input"
+          className= {
+            !formErrors.value ?
+              'transaction-form__input' :
+              'transaction-form__input transaction-form__input_error'
+          }
           id="value"
           type="number"
           step="0.01"
           placeholder='0.00'
           value={ form.value }
-          onChange={ (event) => {
+          onChange={(event) => {
             const raw = event.target.value;
-            
+
             if (raw === '' || /^\d+(\.\d{0,2})?$/.test(raw)) {
-              setForm(prev => ({ ...prev, value: raw }));
+              setForm((prev) => ({ ...prev, value: raw }));
+
+              if (raw !== '' && Number(raw) > 0) {
+                setFormErrors((prev) => ({ ...prev, value: false }));
+              } else {
+                setFormErrors((prev) => ({ ...prev, value: true }));
+              }
             }
-          } } />
+          }}/>
       </div>
 
       <div className="transaction-form__item">
@@ -76,10 +102,21 @@ export default function TransactionForm() {
                 : '/categories/icon-question.svg' } alt="icon" />
             </div>
             <select
-              className="transaction-form__input"
+              className= {
+                !formErrors.category ?
+                  'transaction-form__input' :
+                  'transaction-form__input transaction-form__input_error'
+              }
               id="category"
               value={ form.category }
-              onChange={ (event) => setForm(prev => ({ ...prev, category: event.target.value as Category })) } >
+              onChange={(event) => {
+                const selected = event.target.value as Category;
+                setForm((prev) => ({ ...prev, category: selected }));
+
+                if (selected) {
+                  setFormErrors((prev) => ({ ...prev, category: false }));
+                }
+              }} >
               <option value="" hidden>Выберете категорию</option>
               {
                 Object.values(Category)

@@ -9,7 +9,6 @@ export const transactionsSlice = createSlice({
   initialState,
   reducers: {
     toggleTransaction: (state, { payload: transaction }) => {
-      console.log(transaction);
       const exists = state.some(t => t.id === transaction.id);
 
       if (exists) {

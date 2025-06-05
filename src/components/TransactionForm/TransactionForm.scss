@@ -21,6 +21,11 @@
     outline: none;
     font-size: 0.875rem;
     font-weight: 500;
+    transition: .25s all;
+
+    &_error {
+      border: 1px solid red;      
+    }
   }
 
   &__category {

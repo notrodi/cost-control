@@ -21,6 +21,5 @@ export const transactionsSlice = createSlice({
   }
 })
 
-// export const { actions, reducer } = transactionsSlice;
 export const { toggleTransaction } = transactionsSlice.actions;
-export const reducer = transactionsSlice.reducer;
+export const transactionsReducer = transactionsSlice.reducer;

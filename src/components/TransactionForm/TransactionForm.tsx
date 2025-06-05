@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store/store';
 import { toggleTransaction } from '../../store/transactions/transactions.slice';
 import { v4 } from 'uuid';
+import { decrementBalance } from '../../store/balance/balance.slice';
 
 export default function TransactionForm() {
   const FORM_DEFAULT_VALUE = {
@@ -29,6 +30,7 @@ export default function TransactionForm() {
     }
 
     dispatch(toggleTransaction(newTransaction));
+    dispatch(decrementBalance(form.value));
 
     setForm(FORM_DEFAULT_VALUE);
   }

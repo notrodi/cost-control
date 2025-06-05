@@ -1,0 +1,17 @@
+.history-page{
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__icon {
+    display: flex;
+    padding: 0.75rem;
+    border-radius: 2rem;
+
+    &_active {
+      background: #e9f5e9;
+    }
+  }
+}

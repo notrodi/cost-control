@@ -1,13 +1,24 @@
+import { useDispatch } from 'react-redux';
 import { formatDate, formatMoney, getCategoryColor, getCategoryTitle } from '../../functions';
 import type { Transaction } from '../../types';
 import './History.scss';
+import type { AppDispatch } from '../../store/store';
+import { toggleTransaction } from '../../store/transactions/transactions.slice';
 
 type HistoryProps = {
-  data: Transaction[]
+  data: Transaction[],
+  trashIsShow: boolean
 }
 
-export default function History({ data }: HistoryProps) {
-  const sortedData = data.slice().sort((a, b) => b.date.getTime() - a.date.getTime());
+export default function History({ data, trashIsShow }: HistoryProps) {
+  const sortedData = data.slice().sort((a, b) => {
+    const aDate = typeof a.date === 'string' ? new Date(a.date) : a.date;
+    const bDate = typeof b.date === 'string' ? new Date(b.date) : b.date;
+    
+    return bDate.getTime() - aDate.getTime();
+  });
+    
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <div className='history'>
@@ -28,16 +39,25 @@ export default function History({ data }: HistoryProps) {
               </div>
             </div>
           </div>
-          <div className='history-item__info'>
-            <div>
-              <span className='history-item__value'>
-                { `−${formatMoney(item.value)}` }
-              </span>
-              <span className='history-item__rub'> &#8381;</span>
+          <div className='history-item__right'>
+            <div className='history-item__info'>
+              <div>
+                <span className='history-item__value'>
+                  { `−${formatMoney(item.value)}` }
+                </span>
+                <span className='history-item__rub'> &#8381;</span>
+              </div>
+              <div className='history-item__description'>
+                { formatDate(item.date) }
+              </div>
             </div>
-            <div  className='history-item__description'>
-              { formatDate(item.date) }
-            </div>
+              {
+                trashIsShow &&
+                <img
+                  src="/icons/icon-trash.svg"
+                  alt="icon"
+                  onClick={ () => dispatch(toggleTransaction(item)) }  />
+              }
           </div>
         </div>
       ) }

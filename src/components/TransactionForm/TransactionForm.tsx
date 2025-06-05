@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { getCategoryColor, getCategoryTitle } from '../../functions';
 import { Category } from '../../types';
 import './TransactionForm.scss';
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '../../store/store';
+import { toggleTransaction } from '../../store/transactions/transactions.slice';
+import { v4 } from 'uuid';
 
 export default function TransactionForm() {
   const FORM_DEFAULT_VALUE = {
@@ -11,16 +15,20 @@ export default function TransactionForm() {
     date: new Date().toISOString().slice(0, 16)
   }
   const [form, setForm] = useState(FORM_DEFAULT_VALUE);
+  const dispatch = useDispatch<AppDispatch>();
 
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    console.log({
+    const newTransaction = {
       ...form,
+      id: v4(),
       date: form.date,
       value: (Number(form.value))
-    });
+    }
+
+    dispatch(toggleTransaction(newTransaction));
 
     setForm(FORM_DEFAULT_VALUE);
   }

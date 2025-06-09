@@ -4,6 +4,7 @@ import type { Transaction } from '../../types';
 import './History.scss';
 import type { AppDispatch } from '../../store/store';
 import { toggleTransaction } from '../../store/transactions/transactions.slice';
+import { incrementBalance } from '../../store/balance/balance.slice';
 
 type HistoryProps = {
   data: Transaction[],
@@ -56,7 +57,10 @@ export default function History({ data, trashIsShow }: HistoryProps) {
                 <img
                   src="/icons/icon-trash.svg"
                   alt="icon"
-                  onClick={ () => dispatch(toggleTransaction(item)) }  />
+                  onClick={ () => {
+                    dispatch(toggleTransaction(item));
+                    dispatch(incrementBalance(item.value));
+                  } }  />
               }
           </div>
         </div>

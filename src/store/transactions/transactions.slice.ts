@@ -1,24 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { Transaction } from '../../types';
-import { transactionsMock } from '../../mocks';
+import { getAllTransactions, saveTransaction, deleteTransaction } from '../../utils/db';
 
-const initialState: Transaction[] = transactionsMock;
+export const loadTransactions = createAsyncThunk('transactions/load', async () => {
+  return await getAllTransactions();
+});
 
-export const transactionsSlice = createSlice({
+const transactionsSlice = createSlice({
   name: 'transactions',
-  initialState,
+  initialState: [] as Transaction[],
   reducers: {
     toggleTransaction: (state, { payload: transaction }) => {
-      const exists = state.some(t => t.id === transaction.id);
+      const index = state.findIndex(t => t.id === transaction.id);
 
-      if (exists) {
-        return state.filter(t => t.id !== transaction.id);
+      if (index !== -1) {
+        state.splice(index, 1);
+        deleteTransaction(transaction.id);
       } else {
         state.push(transaction);
+        saveTransaction(transaction);
       }
     }
+  },
+  extraReducers: builder => {
+    builder.addCase(loadTransactions.fulfilled, (_state, action) => {
+      return action.payload;
+    });
   }
-})
+});
 
 export const { toggleTransaction } = transactionsSlice.actions;
 export const transactionsReducer = transactionsSlice.reducer;

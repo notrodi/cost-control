@@ -1,11 +1,18 @@
 import { Category } from '../types';
 
-const CATEGORY_TITLES = {
-  [Category.Products]: 'Еда и продукты',
-  [Category.Transport]: 'Общественный транспорт',
+export const CATEGORY_TITLES: Record<Category, string> = {
+  [Category.Food]: 'Еда',
+  [Category.Transport]: 'Транспорт',
   [Category.Car]: 'Автомобиль',
-}
+  [Category.Housing]: 'Жильё и коммунальные',
+  [Category.Health]: 'Здоровье',
+  [Category.Education]: 'Образование',
+  [Category.Shopping]: 'Покупки',
+  [Category.Leisure]: 'Развлечения',
+  [Category.Travel]: 'Путешествия',
+  [Category.Other]: 'Другое'
+};
 
-export function getCategoryTitle(category: Category) {
+export function getCategoryTitle(category: Category): string {
   return CATEGORY_TITLES[category];
 }

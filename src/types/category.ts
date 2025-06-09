@@ -1,5 +1,12 @@
 export enum Category {
-  Products = 'products',
+  Food = 'food',
   Transport = 'transport',
-  Car = 'car'
+  Car = 'car',
+  Housing = 'housing',
+  Health = 'health',
+  Education = 'education',
+  Shopping = 'shopping',
+  Leisure = 'leisure',
+  Travel = 'travel',
+  Other = 'other'
 }

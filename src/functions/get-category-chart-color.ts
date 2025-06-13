@@ -1,16 +1,23 @@
-import { Category } from '../types';
+import { type Category, ExpenseCategory, IncomeCategory } from '../types';
+
+const INCOME_COLOR = '#2e7d32';
 
 const CATEGORY_COLORS: Record<Category, string> = {
-  [Category.Food]: '#e64a19',
-  [Category.Transport]: '#0288d1',
-  [Category.Car]: '#3949ab',
-  [Category.Housing]: '#00897b',
-  [Category.Health]: '#388e3c',
-  [Category.Education]: '#fbc02d',
-  [Category.Shopping]: '#8e24aa',
-  [Category.Leisure]: '#d81b60',
-  [Category.Travel]: '#6d4c41',
-  [Category.Other]: '#757575'
+  // Категориии расходов
+  [ExpenseCategory.Food]: '#e64a19',
+  [ExpenseCategory.Transport]: '#0288d1',
+  [ExpenseCategory.Car]: '#3949ab',
+  [ExpenseCategory.Housing]: '#00897b',
+  [ExpenseCategory.Health]: '#388e3c',
+  [ExpenseCategory.Education]: '#fbc02d',
+  [ExpenseCategory.Shopping]: '#8e24aa',
+  [ExpenseCategory.Leisure]: '#d81b60',
+  [ExpenseCategory.Travel]: '#6d4c41',
+  [ExpenseCategory.Other]: '#757575',
+  
+    // Категории доходов
+    [IncomeCategory.Salary]: INCOME_COLOR,
+    [IncomeCategory.Cashback]: INCOME_COLOR
 };
 
 export function getCategoryChartColor(category: Category): string {

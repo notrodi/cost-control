@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { formatDate, formatMoney, getCategoryColor, getCategoryTitle } from '../../functions';
-import type { Transaction } from '../../types';
+import { TransactionType, type Transaction } from '../../types';
 import './History.scss';
 import type { AppDispatch } from '../../store/store';
 import { toggleTransaction } from '../../store/transactions/transactions.slice';
-import { incrementBalance } from '../../store/balance/balance.slice';
+import { decrementBalance, incrementBalance } from '../../store/balance/balance.slice';
 
 type HistoryProps = {
   data: Transaction[],
@@ -44,7 +44,12 @@ export default function History({ data, trashIsShow }: HistoryProps) {
             <div className='history-item__info'>
               <div>
                 <span className='history-item__value'>
-                  { `−${formatMoney(item.value)}` }
+                  {
+                    `${item.type === TransactionType.Expense ?
+                      '-' :
+                      '+'}
+                    ${formatMoney(item.value)}`
+                  }
                 </span>
                 <span className='history-item__rub'> &#8381;</span>
               </div>
@@ -59,7 +64,10 @@ export default function History({ data, trashIsShow }: HistoryProps) {
                   alt="icon"
                   onClick={ () => {
                     dispatch(toggleTransaction(item));
-                    dispatch(incrementBalance(item.value));
+                    
+                    item.type === TransactionType.Expense ?
+                      dispatch(incrementBalance(item.value)) :
+                      dispatch(decrementBalance(item.value));
                   } }  />
               }
           </div>

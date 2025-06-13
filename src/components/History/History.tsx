@@ -23,56 +23,59 @@ export default function History({ data, trashIsShow }: HistoryProps) {
 
   return (
     <div className='history'>
-      { sortedData.map((item, index) =>
-        <div key={ index } className='history-item'>
-          <div className='history-item__main'>
-            <div
-              className='history-item__icon'
-              style={{ background: getCategoryColor(item.category) }}>
-              <img src={ `/categories/icon-${item.category}.svg` } alt="icon" />
-            </div>
-            <div>
+      { 
+        sortedData.length ?
+          sortedData.map((item, index) =>
+          <div key={ index } className='history-item'>
+            <div className='history-item__main'>
+              <div
+                className='history-item__icon'
+                style={{ background: getCategoryColor(item.category) }}>
+                <img src={ `/categories/icon-${item.category}.svg` } alt="icon" />
+              </div>
               <div>
-                { getCategoryTitle(item.category) }
-              </div>
-              <div className='history-item__description'>
-                { item.description }
-              </div>
-            </div>
-          </div>
-          <div className='history-item__right'>
-            <div className='history-item__info'>
-              <div>
-                <span className='history-item__value'>
-                  {
-                    `${item.type === TransactionType.Expense ?
-                      '-' :
-                      '+'}
-                    ${formatMoney(item.value)}`
-                  }
-                </span>
-                <span className='history-item__rub'> &#8381;</span>
-              </div>
-              <div className='history-item__description'>
-                { formatDate(item.date) }
+                <div>
+                  { getCategoryTitle(item.category) }
+                </div>
+                <div className='history-item__description'>
+                  { item.description }
+                </div>
               </div>
             </div>
-              {
-                trashIsShow &&
-                <img
-                  src="/icons/icon-trash.svg"
-                  alt="icon"
-                  onClick={ () => {
-                    dispatch(toggleTransaction(item));
-                    
-                    item.type === TransactionType.Expense ?
-                      dispatch(incrementBalance(item.value)) :
-                      dispatch(decrementBalance(item.value));
-                  } }  />
-              }
-          </div>
-        </div>
-      ) }
+            <div className='history-item__right'>
+              <div className='history-item__info'>
+                <div>
+                  <span className='history-item__value'>
+                    {
+                      `${item.type === TransactionType.Expense ?
+                        '-' :
+                        '+'}
+                      ${formatMoney(item.value)}`
+                    }
+                  </span>
+                  <span className='history-item__rub'> &#8381;</span>
+                </div>
+                <div className='history-item__description'>
+                  { formatDate(item.date) }
+                </div>
+              </div>
+                {
+                  trashIsShow &&
+                  <img
+                    src="/icons/icon-trash.svg"
+                    alt="icon"
+                    onClick={ () => {
+                      dispatch(toggleTransaction(item));
+                      
+                      item.type === TransactionType.Expense ?
+                        dispatch(incrementBalance(item.value)) :
+                        dispatch(decrementBalance(item.value));
+                    } }  />
+                }
+            </div>
+          </div> ) :
+          <div>Нет данных</div>
+      }
     </div>
   )
 }
